@@ -135,8 +135,8 @@
 			</div>
 		  <!-- / page 2-->
 		  
-		  <!-- page 2a -->
-          <div id="twoa" class="item">
+		  <!-- page 3 -->
+          <div id="tree" class="item">
             
             <h3>Naive Bayes Continued</h3>
 
@@ -145,6 +145,8 @@
 				<p> So what happens if the signals (fish colors) are not concrete and follow some distribution? For example, what happens if a small portion of male fish were white? Then the Bayesian rule can be rewritten as:</p>
 				<p><blockquote><img src="http://latex.codecogs.com/gif.latex?P%28male|red%2C%20white%29%3D\frac{P%28male%29[P%28red|male%29P%28white|male%29]}{P%28red%2Cwhite%29}"></blockquote></p>
 				<p>In this notation we are making an assumption that the chances of a male fish being white is independent of its chances of being any other colors. In other words, if by chance you observed all white male fish, the chances of the next observed male fish being white are neither reduced nor increased. Same principle applies for all other colors. Assuming such independence is described as “naïve” and therefore this notation is referred to as “naïve Bayes” </p>
+				<p>Following this logic, if a color of a male fish follows some distribution then all those probabilities can be accounted for in the naïve bayes in the following way:</p>
+				<p><blockquote><img src="http://latex.codecogs.com/gif.latex?P%28male|Color_i%2C...%2CColor_n%29%3D\frac{P%28male%29\prod%20%28P%28Color_i|male%29%29}{P%28Color_i%2C...%2CColor_n%29}"></blockquote></p>
               </div>
 			  </div>
 			  <div class="row">
@@ -152,7 +154,27 @@
             </div> <!-- /row -->
 			  			  
           </div>
-		  <!-- / page 2a-->
+		  <!-- / page 3-->
+		  
+		  <!-- page 4 -->
+          <div id="four" class="item">
+            
+            <h3>Naive Bayes Continued</h3>
+
+            <div class="row">         
+              <div class="col-md-12">
+				<p>With the new modified notation of the Bayes rule we can now use our knowledge of <a href="mle.html">mle</a> we can now determine the maximum likelihood of observing a male.</p>
+				<p> Since determining MLE involves differentiating the function and setting it to 0, and the denominator of our modified Bayes rule is a constant we can safely ignore it for our intents and purposes. So to determine the maximum likelihood of observing a male fish we can express a classifier with the following function:</p>
+				<p><blockquote><img src="http://latex.codecogs.com/gif.latex?\hat{male}%3D\underset{male}{\operatorname{argmax}}%20%3D%20P%28male%29\prod%20%28P%28Color_i|male%29%29"></blockquote></p>	
+				<p>In this case we can describe P(male) as a prior and <img src="http://latex.codecogs.com/gif.latex?\prod%20%28P%28Color_i|male%29%29"> is the product of all conditional probabilities of </p>
+              </div>
+			  </div>
+			  <div class="row">
+              
+            </div> <!-- /row -->
+			  			  
+          </div>
+		  <!-- / page 4-->		  
         </div>
 
         <div>
