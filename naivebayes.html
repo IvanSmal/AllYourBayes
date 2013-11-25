@@ -166,7 +166,8 @@
 				<p>With the new modified notation of the Bayes rule we can now use our knowledge of <a href="mle.html">mle</a> to determine the maximum likelihood of observing a male.</p>
 				<p> Since determining MLE involves differentiating the function and setting it to 0, and the denominator of our modified Bayes rule is a constant we can safely ignore it for our intents and purposes. So to determine the maximum likelihood of observing a male fish we can express a classifier with the following function:</p>
 				<p><blockquote><img src="http://latex.codecogs.com/gif.latex?\hat{male}%3D\underset{male}{\operatorname{argmax}}%20%3D%20P%28male%29\prod%20%28P%28Color_i|male%29%29"></blockquote></p>	
-				<p>In this case we can describe P(male) as a prior and <img src="http://latex.codecogs.com/gif.latex?\prod%20%28P%28Color_i|male%29%29"> is conditional probability distribution.</p>
+				<p>In this case we can describe P(male) as a prior and <img src="http://latex.codecogs.com/gif.latex?%28P%28Color_i|male%29%29"> is conditional probability distribution for each color.</p>
+				<p> Using this notation we may perform classification with more complex distributions. On the next page we will attempt to classify a fish.</p>
 				<p></p>
               </div>
 			  </div>
@@ -175,7 +176,25 @@
             </div> <!-- /row -->
 			  			  
           </div>
-		  <!-- / page 4-->		  
+		  <!-- / page 4-->	
+		  <!-- page 5 -->
+          <div id="five" class="item">
+            
+            <h3>Naive Bayes Continued</h3>
+
+            <div class="row">         
+              <div class="col-md-12">
+				<p>Lets assume that in a fish population, colors can span an entire visible spectrum. However, male fish colors are distributed as a Gaussian with the mean wavelength of 590nm with a variance of 30nm. Female fish, on the other hand, exhibit colors with a mean at 520nm with the variance of 40nm.</p>
+				<p>To help you picture the distributions refer to the following plot:</p>
+				<blockquote><img src="Bayes1.png" height="300" width="500"></blockquote>
+              </div>
+			  </div>
+			  <div class="row">
+              
+            </div> <!-- /row -->
+			  			  
+          </div>
+		  <!-- / page 5-->			  
         </div>
 
         <div>
