@@ -48,12 +48,8 @@
 				<ul>
 				<li>To make this process easier, we assume that the data in every category are distributed as multivariate Gaussian distributions with the same variance.</li>
 				<li>Thus, as with the distributions of the three data sets shown below, the points of any data set are just a shifted version of any other data set.</li>
-				</ul>
-				<p> Linear – If our distributions are actually all shifted version of the same Gaussian shape, then dividing them up with lines is an effective means of classifying.</p>
-				<ul>
-				<li>Draw a strict line in the proverbial sand – The line is the boundary.  Every point that lands on the left side of the line is in category red.  Every point on the right is category blue.</li>
-				<li>As with MAP estimation, LDA takes priors into account.  In the top picture, if category red is historically much more likely than category blue, we push the line farther over into blue territory, assuming we are more likely to see red in the future.</li>
-				</ul>				
+				</ul>	
+				<img src="LDA1.png" class="pull-left" alt="">
               </div>
             </div> <!-- /row -->
 
@@ -62,99 +58,32 @@
             </div> <!-- /row -->
           </div> 
           <!-- / page 1-->
-
-          <!-- page 2 -->
-          <div id="two" class="item">
+		  <!-- page 2a -->
+          <div id="twoa" class="item">
             
             <h3>Quantifying LDA</h3>
 
             <div class="row">         
               <div class="col-md-12">
                 <!-- <img src="images/icons/svg/gift-box.svg" class="pull-left" alt=""> -->
-                <p>We know we need to draw a line between our two categories’ distributions.  Where should the line go?</p>
-                <p>Intuitively, since this line will be our decision boundary between the two categories, it should correspond to the points at which the likelihood of either category is equally likely.  If our data falls on this line, then we don’t know how to classify it.  It could just as easily be category ‘hot stove’ as category ‘ice cube.’</p>
-                <p>To find all the points where the likelihood of each category is equal, we first need a function that takes a category and returns the likelihood of that category.  For example, if we call this function f, then f(‘ice cube’) might return 0.57, telling us that the probability the monkey touched an ice cube is 0.57 (given the distributions we already have for ‘hot stove’ and ‘ice cube’). </p>
-				<p>WARNING: Math ahead.  It’s worth the effort.</p>
-				<p> </p>
+				<p> Linear – If our distributions are actually all shifted version of the same Gaussian shape, then dividing them up with lines is an effective means of classifying.</p>
+				<ul>
+				<li>Draw a strict line in the proverbial sand – The line is the boundary.  Every point that lands on the left side of the line is in category red.  Every point on the right is category blue.</li>
+				<li>As with MAP estimation, LDA takes priors into account.  In the top picture, if category red is historically much more likely than category blue, we push the line farther over into blue territory, assuming we are more likely to see red in the future.</li>
+				</ul>
+				<img src="LDA2.png" class="pull-left" alt="">				
               </div>
 			  </div>
 			  <div class="row">
               
             </div> <!-- /row -->
 			  			  
-          </div> <!-- / page 2-->
-
-          <!-- page 3 -->
-          <div id="three" class="item">
+          </div>
+		  <!-- / page 2a-->
+		  <!-- questions 1-->
+        <div id="questions1" class="item">
             
-            <h3>Quantifying LDA</h3>
-
-            <div class="row">         
-              <div class="col-md-12">
-                <!-- <img src="images/icons/svg/gift-box.svg" class="pull-left" alt=""> -->
-                <p>Since we assumed that our categories are distributed as multivariate Gaussians (the pictures above), this likelihood function is essentially just this distribution’s probability density function with the category as the parameter rather than the value:</p>
-				<p>EQ1</p>
-				
-                <p>where cis the prior probability of the category, k is the distribution’s number of components (‘multi’ in ‘multi-variate’ may mean 2, 3, 4…), x is our vector of data (‘hot stove’ and ‘ice cube’ data,  for example), and ucis the category’s mean.</p>
-                <p>This expression looks messy and has lots of variables to keep track of.  Let’s try to simplify it for our application.</p>
-				<p>Our goal is to find the category C with the largest likelihood.  In other words, we want the value of C for which f(C) is maximized (i.e., argmax(f(C))).  As a result, we can remove from f any terms that our constant for all values of C, as these terms won’t affect the function’s relative maximum.</p>
-				<p>Thus, we’ve shaved down our function to </p>
-				<p>EQ2</p>				
-              </div>
-			  </div>
-			  <div class="row">
-              
-            </div> <!-- /row -->
-			  			  
-          </div> <!-- / page 3-->		
-          <!-- page 4 -->
-          <div id="four" class="item">
-            
-            <h3>Quantifying LDA</h3>
-
-            <div class="row">         
-              <div class="col-md-12">
-                <!-- <img src="images/icons/svg/gift-box.svg" class="pull-left" alt=""> -->
-                <p>Can we do even better?  Of course we can, or we wouldn’t be asking.</p>
-				<p>Remember once again that we only need to find the value of C which maximizes the output of f.  If we think very hard, we’ll eventually realize that taking the of f won’t change the maximizing C value because is a monotonically increasing function.  Furthermore, it will make our lives much easier, because we won’t have compute the value of e raised to a power anymore.</p>
-				<p>EQ3</p>				
-                <p>If we think even harder about linear algebra (which we won’t make you do for now), we can simplify this expression to</p>
-                <p>EQ4</p>
-				<p>Great!  We have a fairly simple function that takes a category and returns the likelihood of that category.  Since we may have many categories to consider, let’s generalize its naming scheme.  For a data set x and category C, we’ll rename SYMBOLf to SYMBOLgammac(x).</p>			
-              </div>
-			  </div>
-			  <div class="row">
-              
-            </div> <!-- /row -->
-			  			  
-          </div> <!-- / page 4-->	
-		  
-          <!-- page 5 -->
-          <div id="five" class="item">
-            
-            <h3>Quantifying LDA</h3>
-
-            <div class="row">         
-              <div class="col-md-12">
-                <!-- <img src="images/icons/svg/gift-box.svg" class="pull-left" alt=""> -->
-                <p>What should we do with our function?  Remember that we want to draw a line between two categories where each is equally likely.  </p>
-				<p>If we name our categories ‘hot stove’ and ‘ice cube’, then we have two functions for any given data set x: 'hot stove'(x) and 'ice cube'(x).  Now we want the line of values in our data set x for which these two categories’ likelihoods are equal.</p>
-				<p>EQ5</p>	
-                <p>EQ6</p>				
-                <p>Therefore, moving all the terms to the left side, our final boundary equation is</p>
-				<p>EQ7</p>
-				<p>What is this equation telling us?  If we provide it values for our categories’ means (uhot stove, uice cube), covariances (-1), and prior probabilities (hot stove, ice cube), then it will tell us the values x in our dataset for which the likelihoods of our two categories are equal.  We have our line!c</p>				
-              </div>
-			  </div>
-			  <div class="row">
-              
-            </div> <!-- /row -->
-			  			  
-          </div> <!-- / page 5-->
-        <!-- page 6 -->
-        <div id="six" class="item">
-            
-            <h3>Questions</h3>
+            <h3>Practice Questions</h3>
 			<div class="row">
               <!-- <div class="col-md-2"></div> -->
 
@@ -176,6 +105,25 @@
               <div class="col-md-4">
                 <div class="panel panel-default">
                   <div class="panel-body">
+                    <h6 class="demo-panel-title">   In LDA, we assume every data set’s distribution to have the same _____ but possibly different ______.</h6>
+                    <label class="radio">
+                      <span class="icons"><span class="first-icon fui-radio-unchecked"></span><span class="second-icon fui-radio-checked"></span></span><input type="radio" name="q2" id="q2-1" value="variance, means" data-toggle="radio">
+                      variance, means
+                    </label>
+                    <label class="radio">
+                      <span class="icons"><span class="first-icon fui-radio-unchecked"></span><span class="second-icon fui-radio-checked"></span></span><input type="radio" name="q2" id="q2-2" value="other" data-toggle="radio">
+                      means, variance
+                    </label>
+                    <button data-answer="variance, means" class="btn btn-block btn-primary">
+                      <span class="glyphicon glyphicon-check"></span> Check
+                    </button>
+                  </div> 
+                </div>
+			  </div>
+
+			  <div class="col-md-4">
+                <div class="panel panel-default">
+                  <div class="panel-body">
                     <h6 class="demo-panel-title"> In LDA, what distribution do we assume every data set follows?</h6>
                     <label class="radio">
                       <span class="icons"><span class="first-icon fui-radio-unchecked"></span><span class="second-icon fui-radio-checked"></span></span><input type="radio" name="q2" id="q2-1" value="Answer 1" data-toggle="radio">
@@ -187,10 +135,157 @@
                     </label>
                     <label class="radio">
                       <span class="icons"><span class="first-icon fui-radio-unchecked"></span><span class="second-icon fui-radio-checked"></span></span><input type="radio" name="q2" id="q2-3" value="Answer 3" data-toggle="radio">
-                      Answer 3
+                      Bimodal
                     </label>
 
                     <button data-answer="Gaussian" class="btn btn-block btn-primary">
+                      <span class="glyphicon glyphicon-check"></span> Check
+                    </button>
+                  </div> 
+                </div>
+			  </div>
+			 </div>
+			<div class="row">
+			</div>
+        </div>
+		  <!-- /questions 1-->
+          <!-- page 2 -->
+          <div id="two" class="item">
+            
+            <h3>Quantifying LDA</h3>
+
+            <div class="row">         
+              <div class="col-md-12">
+                <!-- <img src="images/icons/svg/gift-box.svg" class="pull-left" alt=""> -->
+                <p>We know we need to draw a line between our two categories’ distributions.  Where should the line go?</p>
+                <p>Intuitively, since this line will be our <u>decision boundary</u> between the two categories, it should correspond to the points at which the likelihood of either category is equally likely.  If our data falls on this line, then we don’t know how to classify it.  It could just as easily be category ‘hot stove’ as category ‘ice cube.’</p>
+                <p>To find all the points where the likelihood of each category is equal, we first need a function that takes a category and returns the likelihood of that category.  For example, if we call this function f, then f(‘ice cube’) might return 0.57, telling us that the probability the monkey touched an ice cube is 0.57 (given the distributions we already have for ‘hot stove’ and ‘ice cube’). </p>
+				<p>WARNING: Math ahead.  It’s worth the effort.</p>
+				<p> </p>
+              </div>
+			  </div>
+			  <div class="row">
+              
+            </div> <!-- /row -->
+			  			  
+          </div> <!-- / page 2-->
+
+          <!-- page 3 -->
+          <div id="three" class="item">
+            
+            <h3>Quantifying LDA</h3>
+
+            <div class="row">         
+              <div class="col-md-12">
+                <!-- <img src="images/icons/svg/gift-box.svg" class="pull-left" alt=""> -->
+                <p>Since we assumed that our categories are distributed as multivariate Gaussians (the pictures above), this likelihood function is essentially just this distribution’s probability density function with the category as the parameter rather than the value:</p>
+				<blockquote><img src="http://latex.codecogs.com/gif.latex?\begin{align*}&space;f(c)&space;=&space;\frac{\pi_c}{(2\pi)^{k/2}&space;det(\Sigma)^{1/2}}e^{-0.5(x&space;-&space;\mu_c)^T\Sigma^{-1}(x&space;-&space;\mu_c)}&space;\end{align*}"></blockquote>
+				
+                <p>where <img src="http://latex.codecogs.com/gif.latex?\pi%20_{c}"> is the prior probability of the category, k is the distribution’s number of components (‘multi’ in ‘multi-variate’ may mean 2, 3, 4…), x is our vector of data (‘hot stove’ and ‘ice cube’ data,  for example), and <img src="http://latex.codecogs.com/gif.latex?\mu%20_{c}">is the category’s mean.</p>
+                <p>This expression looks messy and has lots of variables to keep track of.  Let’s try to simplify it for our application.</p>
+				<p>Our goal is to find the category C with the largest likelihood.  In other words, we want the value of C for which f(C) is maximized (i.e., argmax(f(C))).  As a result, we can remove from f any terms that our constant for all values of C, as these terms won’t affect the function’s relative maximum.</p>
+				<p>Thus, we’ve shaved down our function to </p>
+				<p><blockquote><img src="http://latex.codecogs.com/gif.latex?\begin{align*}&space;f(c)&space;=&space;\pi_c&space;e^{-0.5(x&space;-&space;\mu_c)^T\Sigma^{-1}(x&space;-&space;\mu_c)}&space;\end{align*}"></blockquote></p>				
+              </div>
+			  </div>
+			  <div class="row">              
+            </div> <!-- /row -->
+			  			  
+          </div> <!-- / page 3-->		
+          <!-- page 4 -->
+          <div id="four" class="item">
+            
+            <h3>Quantifying LDA</h3>
+
+            <div class="row">         
+              <div class="col-md-12">
+                <!-- <img src="images/icons/svg/gift-box.svg" class="pull-left" alt=""> -->
+                <p>Can we do even better?  Of course we can, or we wouldn’t be asking.</p>
+				<p>Remember once again that we only need to find the value of C which maximizes the output of f.  If we think very hard, we’ll eventually realize that taking the of f won’t change the maximizing C value because is a monotonically increasing function.  Furthermore, it will make our lives much easier, because we won’t have compute the value of e raised to a power anymore.</p>
+				<p><blockquote><img src="http://latex.codecogs.com/gif.latex?\begin{align*}&space;f(c)&space;=&space;\log(\pi_c)&space;-&space;0.5(x&space;-&space;\mu_c)^T\Sigma^{-1}(x&space;-&space;\mu_c)&space;\end{align*}"></blockquote></p>				
+                <p>If we think even harder about linear algebra (which we won’t make you do for now), we can simplify this expression to</p>
+                <p><blockquote><img src="http://latex.codecogs.com/gif.latex?\begin{align*}&space;f(c)&space;=&space;\log(\pi_c)&space;&plus;&space;\mu_c^T\Sigma^{-1}x&space;-&space;0.5\mu_c^T\Sigma^{-1}\mu_c&space;\end{align*}"></blockquote></p>
+				<p>Great!  We have a fairly simple function that takes a category and returns the likelihood of that category.  Since we may have many categories to consider, let’s generalize its naming scheme.  For a data set x and category C, we’ll rename <img src="http://latex.codecogs.com/gif.latex?f"> to <img src="http://latex.codecogs.com/gif.latex?\delta%20_{c}%20%28x%29">.</p>			
+              </div>
+			  </div>
+			  <div class="row">
+              
+            </div> <!-- /row -->
+			  			  
+          </div> <!-- / page 4-->	
+		  
+          <!-- page 5 -->
+          <div id="five" class="item">
+            
+            <h3>Quantifying LDA</h3>
+
+            <div class="row">         
+              <div class="col-md-12">
+                <!-- <img src="images/icons/svg/gift-box.svg" class="pull-left" alt=""> -->
+                <p>What should we do with our function?  Remember that we want to draw a line between two categories where each is equally likely.  </p>
+				<p>If we name our categories ‘hot stove’ and ‘ice cube’, then we have two functions for any given data set x: <img src="http://latex.codecogs.com/gif.latex?\delta_{\text{hot%20stove}}%28x%29"> and <img src="http://latex.codecogs.com/gif.latex?\delta_{\text{ive%20cube}}%28x%29">.  Now we want the line of values in our data set x for which these two categories’ likelihoods are equal.</p>
+				<p><blockquote><img src="http://latex.codecogs.com/gif.latex?\begin{align*}&space;\delta_{\text{hot&space;stove}}(x)&space;=&space;\delta_{\text{ice&space;cube}}(x)\\&space;\end{align*}"></blockquote></p>	
+                <p><blockquote><img src="http://latex.codecogs.com/gif.latex?\begin{align*}&space;\log(\pi_{\text{hs}})&space;-&space;\mu_{\text{hs}}^T\Sigma^{-1}x&space;-&space;0.5\mu_{\text{hs}}^T\Sigma^{-1}\mu_{\text{hs}}&space;=&space;\log(\pi_{\text{ic}})&space;-&space;\mu_{\text{ic}}^T\Sigma^{-1}x&space;-&space;0.5\mu_{\text{ic}}^T\Sigma^{-1}\mu_{\text{ic}}&space;\end{align*}"></blockquote></p>				
+                <p>Therefore, moving all the terms to the left side, our final boundary equation is</p>
+				<p><blockquote><img src="http://latex.codecogs.com/gif.latex?\begin{align*}&space;(\mu_{hs}&space;-&space;\mu_{ic})^T\Sigma^{-1}x&space;-&space;\frac{1}{2}(\mu_{hs}&space;&plus;&space;\mu_{ic})^T\Sigma^{-1}(\mu_{hs}&space;-&space;\mu_{ic})&space;&plus;&space;\log\frac{\pi_{hs}}{\pi_{ic}}&space;=&space;0&space;\end{align*}"></blockquote></p>
+				<p>What is this equation telling us?  If we provide it values for our categories’ means (<img src="http://latex.codecogs.com/gif.latex?$\mu_{\text{hot&space;stove}},&space;\mu_{\text{ice&space;cube}}$">), covariances (<img src="http://latex.codecogs.com/gif.latex?$\Sigma^{-1}$">), and prior probabilities (<img src="http://latex.codecogs.com/gif.latex?$\pi_{hot&space;stove},&space;\pi_{ice&space;cube}$">), then it will tell us the values x in our dataset for which the likelihoods of our two categories are equal.  We have our line!</p>				
+              </div>
+			  </div>
+			 <div class="row">              
+            </div> <!-- /row -->
+			  			  
+          </div> <!-- / page 5-->
+        <!-- page 6 -->
+        <div id="six" class="item">
+            
+            <h3>Practice Questions</h3>
+			<div class="row">         
+              <div class="col-md-12">
+				<p>
+				Consider the following graph:</p>
+				<blockquote><img src="LDA1.png" height="300" width="300"></blockquote>
+              </div>
+            </div>
+			<div class="row">
+              <!-- <div class="col-md-2"></div> -->
+
+              <div class="col-md-6">
+                <div class="panel panel-default">
+                  <div class="panel-body">
+                    <h6 class="demo-panel-title">If we learn that both the mean x and mean y values of the blue category decrease, which way does the decision boundary line move?</h6>
+                    <label class="radio">
+                      <span class="icons"><span class="first-icon fui-radio-unchecked"></span><span class="second-icon fui-radio-checked"></span></span><input type="radio" name="q2" id="q2-1" value="Answer 1" data-toggle="radio">
+                       Line moves down and left
+                    </label>
+                    <label class="radio">
+                      <span class="icons"><span class="first-icon fui-radio-unchecked"></span><span class="second-icon fui-radio-checked"></span></span><input type="radio" name="q2" id="q2-2" value="Gaussian" data-toggle="radio">
+                      Up and right
+                    </label>
+                    <label class="radio">
+                      <span class="icons"><span class="first-icon fui-radio-unchecked"></span><span class="second-icon fui-radio-checked"></span></span><input type="radio" name="q2" id="q2-3" value="Does not change" data-toggle="radio">
+                      Does not change
+                    </label>
+
+                    <button data-answer="Does not change" class="btn btn-block btn-primary">
+                      <span class="glyphicon glyphicon-check"></span> Check
+                    </button>
+                  </div> 
+                </div>
+			  </div>
+			<div class="col-md-6">
+                <div class="panel panel-default">
+                  <div class="panel-body">
+                    <h6 class="demo-panel-title">If we learn that the blue and red distributions have different variances, can we still perform LDA analysis?</h6>
+                    <label class="radio">
+                      <span class="icons"><span class="first-icon fui-radio-unchecked"></span><span class="second-icon fui-radio-checked"></span></span><input type="radio" name="q2" id="q2-1" value="Answer 1" data-toggle="radio">
+                       Yes
+                    </label>
+                    <label class="radio">
+                      <span class="icons"><span class="first-icon fui-radio-unchecked"></span><span class="second-icon fui-radio-checked"></span></span><input type="radio" name="q2" id="q2-2" value="No, LDA analysis assumes that both distributions have the same variance." data-toggle="radio">
+                      No
+                    </label>
+
+                    <button data-answer="No, LDA analysis assumes that both distributions have the same variance." class="btn btn-block btn-primary">
                       <span class="glyphicon glyphicon-check"></span> Check
                     </button>
                   </div> 
